@@ -14,8 +14,8 @@ With a tabstop of 2 this will look like this:
     Robert  Smith 34,269
     Maria Garcia  32,092
 
-Pressing <c-t> will automatically set the tabstop to the value required to get
-proper alignment (in this case 8):
+Pressing `<c-t>` will automatically set the tabstop to the value required to
+get proper alignment (in this case 8):
 
     James   Smith   38,313
     Michael Smith   34,810
