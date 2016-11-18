@@ -47,7 +47,7 @@ function! CalcTS()
 	for l in getline(0, "$")
 		let i = 0
 
-		for item in split(l, '\t')
+		for item in split(l, '\t')[:-2]
 			if i < tab_count
 				if len(item) > _max
 					let _max = len(item)
