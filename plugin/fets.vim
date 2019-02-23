@@ -26,53 +26,52 @@
 "
 " [1]: http://nickgravgaard.com/elastic-tabstops/
 
-function! MaxTabCount()
-	let _max = 0
+function! s:MaxTabCount()
+	let l:max = 0
 
-	for l in getline(0, "$")
-		let tab_count = len(split(l, '\t')) - 1
-		if tab_count > _max
-			let _max = tab_count
+	for l:line in getline(0, "$")
+		let l:tab_count = len(split(l:line, '\t')) - 1
+		if l:tab_count > l:max
+			let l:max = l:tab_count
 		endif
 	endfor
 
-	return _max
+	return l:max
 endfunction
 
-function! CalcTS()
-	let _max = 0
-	let tab_count = MaxTabCount()
-	echom tab_count
+function! s:CalcTS()
+	let l:max = 0
+	let l:tab_count = s:MaxTabCount()
 
-	for l in getline(0, "$")
-		let i = 0
+	for l:line in getline(0, "$")
+		let l:i = 0
 
-		for item in split(l, '\t')[:-2]
-			if i < tab_count
-				if len(item) > _max
-					let _max = len(item)
+		for l:item in split(l:line, '\t')[:-2]
+			if l:i < l:tab_count
+				if len(l:item) > l:max
+					let l:max = len(l:item)
 				endif
 
-				let i += 1
+				let l:i += 1
 			endif
 		endfor
 	endfor
 
-	return _max + 1
+	return l:max + 1
 endfunction
 
 function! FETS()
-	let fets = CalcTS()
+	let l:fets = s:CalcTS()
 
-	if fets == &l:tabstop
+	if l:fets == &l:tabstop
 		let &l:tabstop = 2
 		let &l:softtabstop = 2
 		let &l:shiftwidth = 2
 	else
-		let &l:tabstop = fets
-		let &l:softtabstop = fets
-		let &l:shiftwidth = fets
+		let &l:tabstop = l:fets
+		let &l:softtabstop = l:fets
+		let &l:shiftwidth = l:fets
 	endif
 endfunction
 
-map <c-t> :call FETS()<cr>
+map <c-t> :call FETS()<CR>
