@@ -9,7 +9,7 @@
 " -   All lines have the same tabstops
 "
 " To still get the minimal functionality, this plugin simply uses the maximum
-" value for the tabstops.  This of course leaves you with hue tabstops, but
+" value for the tabstops.  This of course leaves you with huge tabstops, but
 " at least you get proper alignment.  It might be useful in some specific
 " contexts, e.g. tab separated value files.
 "
