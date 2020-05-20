@@ -74,4 +74,4 @@ function! FETS()
 	endif
 endfunction
 
-map <c-t> :call FETS()<CR>
+noremap <c-t> :call FETS()<CR>
