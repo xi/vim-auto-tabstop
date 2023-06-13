@@ -49,16 +49,17 @@ function! s:CalcTS()
 endfunction
 
 function! FETS()
-	let l:fets = max(s:CalcTS())
-
-	if l:fets == &l:tabstop
+	if get(b:, 'fets_active', 0)
 		let &l:tabstop = &g:tabstop
 		let &l:shiftwidth = &g:shiftwidth
 		let &l:softtabstop = &g:softtabstop
+		let b:fets_active = 0
 	else
+		let l:fets = max(s:CalcTS())
 		let &l:tabstop = l:fets
 		let &l:shiftwidth = l:fets
 		let &l:softtabstop = -1
+		let b:fets_active = 1
 	endif
 endfunction
 
