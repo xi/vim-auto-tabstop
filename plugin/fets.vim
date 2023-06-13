@@ -27,21 +27,29 @@
 " [1]: http://nickgravgaard.com/elastic-tabstops/
 
 function! s:CalcTS()
-	let l:max = 0
+	let l:tabs = [0]
 
 	for l:line in getline(0, "$")
+		let l:i = 0
+
 		for l:item in split(l:line, '\t')[:-2]
-			if len(l:item) > l:max
-				let l:max = len(l:item)
+			let l:len = len(l:item) + 1
+
+			if len(l:tabs) <= l:i
+				call add(l:tabs, l:len)
+			elseif l:len > l:tabs[l:i]
+				let l:tabs[l:i] = l:len
 			endif
+
+			let l:i += 1
 		endfor
 	endfor
 
-	return l:max + 1
+	return l:tabs
 endfunction
 
 function! FETS()
-	let l:fets = s:CalcTS()
+	let l:fets = max(s:CalcTS())
 
 	if l:fets == &l:tabstop
 		let &l:tabstop = &g:tabstop
