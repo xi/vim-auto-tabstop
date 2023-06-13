@@ -13,6 +13,9 @@
 " at least you get proper alignment.  It might be useful in some specific
 " contexts, e.g. tab separated value files.
 "
+" If vim was compiled with +vartabs, the first restriction does no longer
+" apply.
+"
 " Usage
 " -----
 "
@@ -53,12 +56,20 @@ function! FETS()
 		let &l:tabstop = &g:tabstop
 		let &l:shiftwidth = &g:shiftwidth
 		let &l:softtabstop = &g:softtabstop
+		if has('vartabs')
+			let &l:vartabstop = &g:vartabstop
+		endif
 		let b:fets_active = 0
 	else
-		let l:fets = max(s:CalcTS())
-		let &l:tabstop = l:fets
-		let &l:shiftwidth = l:fets
-		let &l:softtabstop = -1
+		let l:tabs = s:CalcTS()
+		if has('vartabs')
+			let &l:vartabstop = join(l:tabs, ',')
+			let &l:softtabstop = 0
+		else
+			let &l:tabstop = max(l:tabs)
+			let &l:shiftwidth = max(l:tabs)
+			let &l:softtabstop = -1
+		endif
 		let b:fets_active = 1
 	endif
 endfunction
