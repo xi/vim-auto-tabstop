@@ -26,33 +26,13 @@
 "
 " [1]: http://nickgravgaard.com/elastic-tabstops/
 
-function! s:MaxTabCount()
-	let l:max = 0
-
-	for l:line in getline(0, "$")
-		let l:tab_count = len(split(l:line, '\t')) - 1
-		if l:tab_count > l:max
-			let l:max = l:tab_count
-		endif
-	endfor
-
-	return l:max
-endfunction
-
 function! s:CalcTS()
 	let l:max = 0
-	let l:tab_count = s:MaxTabCount()
 
 	for l:line in getline(0, "$")
-		let l:i = 0
-
 		for l:item in split(l:line, '\t')[:-2]
-			if l:i < l:tab_count
-				if len(l:item) > l:max
-					let l:max = len(l:item)
-				endif
-
-				let l:i += 1
+			if len(l:item) > l:max
+				let l:max = len(l:item)
 			endif
 		endfor
 	endfor
