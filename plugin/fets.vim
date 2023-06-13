@@ -16,7 +16,7 @@
 " Usage
 " -----
 "
-" Press <c-t> to set tabstop width. Press again to reset to 2.
+" Press <c-t> to set tabstop width. Press again to reset.
 "
 " License
 " -------
@@ -64,13 +64,13 @@ function! FETS()
 	let l:fets = s:CalcTS()
 
 	if l:fets == &l:tabstop
-		let &l:tabstop = 2
-		let &l:softtabstop = 2
-		let &l:shiftwidth = 2
+		let &l:tabstop = &g:tabstop
+		let &l:shiftwidth = &g:shiftwidth
+		let &l:softtabstop = &g:softtabstop
 	else
 		let &l:tabstop = l:fets
-		let &l:softtabstop = l:fets
 		let &l:shiftwidth = l:fets
+		let &l:softtabstop = -1
 	endif
 endfunction
 
