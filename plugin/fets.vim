@@ -35,7 +35,7 @@ function! s:CalcTS()
 	for l:line in getline(0, "$")
 		let l:i = 0
 
-		for l:item in split(l:line, '\t')[:-2]
+		for l:item in split(l:line, '\t', 1)[:-2]
 			let l:len = len(l:item) + 1
 
 			if len(l:tabs) <= l:i
